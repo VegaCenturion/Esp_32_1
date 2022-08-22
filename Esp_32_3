@@ -19,7 +19,8 @@ def Screenshot():
     if (ligado == True):
         while (ligado == True):                         # Condição de automação para Screenshot                                        
             sleep(60)                                   #Timer para o espaçamento das captura
-    else:   
+            browser.save_screenshot('ESP_32_3.png')
+        else:   
         print("desligado")
 
 def Rodando():
@@ -30,7 +31,7 @@ def Rodando():
     print("carregando programa")                # Teste de carregamento da página
     sleep(5)                                    # Espera para carregamento das informações da Estação
     Screenshot()
-    browser.save_screenshot('ESP_32_3.png')     # salva a screenshot
+         # salva a screenshot
 
 def window():
     sg.theme('LightGray1')
