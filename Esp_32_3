@@ -1,0 +1,79 @@
+from selenium import webdriver
+from PIL import Image
+import os
+from ctypes import windll
+from PySimpleGUI import PySimpleGUI as sg
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys 
+from time import sleep
+from threading import Thread
+
+
+winOpen = True
+timeSet = 60
+state = False
+ligado = False
+url = 'http://172.16.8.79/monitora'
+
+def Screenshot():
+    if (ligado == True):
+        while (ligado == True):                         # Condição de automação para Screenshot                                        
+            sleep(60)                                   #Timer para o espaçamento das captura
+    else:   
+        print("desligado")
+
+def Rodando():
+    ligado = True
+    print("rodando") #Checa se o programa foi iniciado
+    browser = webdriver.Firefox()               # Recebe drives do nevegador a ser usado || recomenda-se Firefox por ser mais leve
+    browser.get(url)  # Abre a janela na qual será alvo da captura
+    print("carregando programa")                # Teste de carregamento da página
+    sleep(5)                                    # Espera para carregamento das informações da Estação
+    Screenshot()
+    browser.save_screenshot('ESP_32_3.png')     # salva a screenshot
+
+def window():
+    sg.theme('LightGray1')
+    global winOpen
+
+    layout = [[sg.Button('Tirar foto agora'), sg.Text(size=(15,1), key='-FOTO-')],
+                [sg.Text('Tempo entre updates (Segundos):'),sg.Text(size=(15,1),key='-OUTPUT1-')], 
+                [sg.Input(key='-IN1-',default_text='60'),sg.Button('Def Segundos'),],
+                [sg.Text('URL alvo para a captura: '), sg.Text(size=(40,1), key='-OUTPUT2-')], 
+                [sg.Input(key='-IN2-'), sg.Button('Definir')], 
+                [sg.Button('Iniciar Programa'), sg.Button('Sair')]]
+
+    window = sg.Window('ScreenShot Esp_32_3', layout)
+
+    try:
+        while True: 
+            global url, timeSet
+            event, values, = window.read() 
+            print(event, values) 
+            
+            if event in  (None, 'Sair'): 
+                break
+            if event == 'Def Segundos': 
+                window['-OUTPUT1-'].update(values['-IN1-']) 
+                timeSet = (values['-IN1-'])
+
+            if event == 'Iniciar/Pausar Programa':
+                if state == False:
+                    state = True
+                    window['-STATE-'].update('Ligado')
+                else:
+                    state = False
+                    window['-STATE-'].update('Desligado')                    # Espera para carregamento das informações da Estação
+
+
+    except:
+        winOpen = False
+        sg.popup_error(f'ERRO. Tente novamente.')
+        window.close()
+
+
+a = Thread(target = window())
+b = Thread(target = Rodando())
+
+
+
