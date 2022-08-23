@@ -25,16 +25,16 @@ from threading import Thread
 
 
 winOpen = True
-timeSet = 60
 state = False
+timeSet = 60
 url = 'http://172.16.8.79/monitora'
 arqNome = 'ESP_32_3.png'
 
 def Screenshot():
-    while (state == True):    
-        browser = webdriver.Firefox()                    # Condição de automação para Screenshot                                        
+    while (state == True):                                       
         browser.save_screenshot(arqNome)                 # salva a screenshot
         sleep(timeSet)                                   #Timer para o espaçamento das captura
+        print("printando")
 
 
 def Rodando():
@@ -51,14 +51,14 @@ def window():
     sg.theme('LightGray1')
     global winOpen
 
-    layout = [[sg.Button('Tirar foto agora'), sg.Text(size=(15,1), key='-FOTO-')],
+    layout = [[sg.Button('Tirar foto agora',button_color=('purple')), sg.Text(size=(15,1), key='-FOTO-')],
                 [sg.Text('Tempo entre capturas (Segundos):'),sg.Text(size=(15,1),key='-OUTPUT1-')], 
-                [sg.Input(key='-IN1-',default_text='60'),sg.Button('Definir Segundos'),],
+                [sg.Input(key='-IN1-',default_text='60'),sg.Button('Definir Segundos',button_color=('purple')),],
                 [sg.Text('URL alvo para a captura: '), sg.Text(size=(40,1), key='-OUTPUT2-')], 
-                [sg.Input(key='-IN2-', default_text='http://172.16.8.79/monitora'), sg.Button('Definir URL')],
+                [sg.Input(key='-IN2-', default_text='http://172.16.8.79/monitora'), sg.Button('Definir URL',button_color=('purple'))],
                 [sg.Text('Nome do Arquivo: '), sg.Text(size=(40,1),key='-OUTPUT3-')], 
-                [sg.Input(key='-IN_ARQ-', default_text='Esp_32_3.png'), sg.Button('Definir Nome')],
-                [[sg.Button('Iniciar/Pausar Programa', button_color=('purple')), sg.Text(size=(15,1), key='-STATE-')], sg.Button('Sair')]]
+                [sg.Input(key='-IN_ARQ-', default_text='Esp_32_3.png'), sg.Button('Definir Nome',button_color=('purple'))],
+                [[sg.Button('Iniciar/Pausar Programa', button_color=('purple')), sg.Text(size=(40,1)), sg.Text(size=(15,1), key='-STATE-')], sg.Button('Sair',button_color=('purple'))]]
 
     window = sg.Window('ScreenShot Esp_32_3', layout)
 
@@ -69,6 +69,9 @@ def window():
             print(event, values) 
             
             if event in  (None, 'Sair'): 
+                state = False
+                winOpen = False
+                browser.close()
                 break
             if event == 'Tirar foto agora':
                 window['-FOTO-']
@@ -104,5 +107,3 @@ def window():
 
 Thread(target = window())
 Thread(target = Rodando())
-
-# o programa de screenshot so roda se a janela for fechada
