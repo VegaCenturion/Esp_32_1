@@ -1,3 +1,9 @@
+#Developer: https://github.com/VegaCenturion
+#Special thanks : https://github.com/Ala-R-F
+#               : https://github.com/annapss
+#               : https://github.com/LuisHTVRS
+#=========================================(//||^Progranadores^||\\)=========================================
+
 #print("rodando")                            	# Checa se o programa foi iniciado
 #browser = webdriver.Firefox()               	# Recebe drives do nevegador a ser usado || recomenda-se Firefox por ser mais leve
 #print("Peguei o Navegador")		    	    # Teste
@@ -31,7 +37,7 @@ state = False
 timeSet = 60
 url = 'http://173.16.8.151'
 arqNome = 'Teste.png'
-#("C:\\Users\\Aluno\\Desktop\\Guilherme_3binfo\\Python\\Teste.png", "C:\\temp\\Teste.png")
+browser = webdriver.Firefox()           # Recebe drives do nevegador a ser usado || recomenda-se Firefox por ser mais leve
 
 #=====================================(//||^Variaveis globais^||\\)=========================================
 
@@ -94,7 +100,6 @@ def window():                               # Inteface grafica do programa
                 if state == False:
                     state = True
                     window['-STATE-'].update('Ligado')
-                    browser = webdriver.Firefox()           # Recebe drives do nevegador a ser usado || recomenda-se Firefox por ser mais leve
                     browser.get(url)                        # Abre a janela na qual será alvo da captura
                     winOpen = True
                     while(state == True):
@@ -121,3 +126,4 @@ b.start()
 a.join
 b.join
 #======================================(//||^Thread dos programas^||\\)======================================
+
