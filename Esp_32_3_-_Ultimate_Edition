@@ -1,3 +1,9 @@
+#Developer: https://github.com/VegaCenturion
+#Special thanks : https://github.com/Ala-R-F
+#               : https://github.com/annapss
+#               : https://github.com/LuisHTVRS
+#=========================================(//||^Progranadores^||\\)============================================
+
 #print("rodando")                            	# Checa se o programa foi iniciado
 #browser = webdriver.Firefox()               	# Recebe drives do nevegador a ser usado || recomenda-se Firefox por ser mais leve
 #print("Peguei o Navegador")		    	    # Teste
