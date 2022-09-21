@@ -36,9 +36,9 @@ from threading import Thread
 
 winOpen = True
 state = False
-timeSet = 60
-url = 'https://www.horariodebrasilia.org/'
-arqNome = 'Teste.png'
+timeSet = 30
+url = 'http://172.16.8.151/monitora'
+arqNome = 'MAWS_padrao.png'
 path = r'C:\temp'
 #("C:\\Users\\Aluno\\Desktop\\Guilherme_3binfo\\Python\\Teste.png", "C:\\temp\\Teste.png")
 
@@ -54,14 +54,14 @@ def Rodando():                              #Função de Screenshot do programa
     global winOpen, timeSet, state
     browser = webdriver.Firefox()           # Recebe drives do nevegador a ser usado || recomenda-se Firefox por ser mais leve
     browser.get(url)                        # Abre a janela na qual será alvo da captura
+    browser.set_window_position(0, 0)
+    browser.set_window_size(476, 719)
     sleep(5)                                # tempo para carregar a pagina
     while True:
         browser.save_screenshot(f"{path}/{arqNome}")        # salva a screenshot
-        print("printando")                      # Teste
         state = True
         timeSet = int(timeSet)
         sleep(timeSet)                          # Timer para o espaçamento das captura
-        print("a mimir")                        # Teste
 
 
 def window():                               # Inteface grafica do programa
@@ -69,11 +69,11 @@ def window():                               # Inteface grafica do programa
     global winOpen
 
     layout = [[sg.Text('Tempo entre capturas (Segundos):'),sg.Text(size=(15,1),key='-OUTPUT1-')], 
-                [sg.Input(key='-IN1-',default_text='15'),sg.Button('Definir Segundos',button_color=('purple')),],
+                [sg.Input(key='-IN1-',default_text='30'),sg.Button('Definir Segundos',button_color=('purple')),],
                 [sg.Text('URL completa do alvo para a captura: [https://www."site".com]: '), sg.Text(size=(40,1), key='-OUTPUT2-')], 
-                [sg.Input(key='-IN2-', default_text='https://www.horariodebrasilia.org/'), sg.Button('Definir URL',button_color=('purple'))],
+                [sg.Input(key='-IN2-', default_text='http://172.16.8.151/monitora'), sg.Button('Definir URL',button_color=('purple'))],
                 [sg.Text('Nome do Arquivo[.png]: '), sg.Text(size=(40,1),key='-OUTPUT3-')], 
-                [sg.Input(key='-IN_ARQ-', default_text='Teste.png'), sg.Button('Definir Nome',button_color=('purple'))],
+                [sg.Input(key='-IN_ARQ-', default_text='MAWS_padrao.png'), sg.Button('Definir Nome',button_color=('purple'))],
                 [sg.Text('Caminho da pasta:'), sg.Button('Mudar pasta')],
                 [sg.Text(size=(50,1), key='-OUT_PATH-')],
                 [sg.Button('Iniciar Programa', button_color=('purple')), sg.Text(size=(15,1), key='-STATE-')]]
