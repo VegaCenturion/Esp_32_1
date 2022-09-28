@@ -79,7 +79,7 @@ def window():                               # Inteface grafica do programa
                 [sg.Button('Iniciar Programa', button_color=('purple')), sg.Text(size=(15,1), key='-STATE-')]]
 
 
-    window = sg.Window('ScreenShot Esp_32_3', layout)
+    window = sg.Window('SSA_Est_Met', layout)
 
     try:
         while True: 
